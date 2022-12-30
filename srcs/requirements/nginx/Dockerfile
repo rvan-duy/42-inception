@@ -1,9 +1,7 @@
-FROM alpine:latest
+FROM debian:latest
 
-RUN apk --no-cache add nginx
+RUN apt-get update && apt-get install -y nginx
 
-# Replace the default NGINX configuration file with a custom one
-# that enables only TLSv1.2 and TLSv1.3
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
