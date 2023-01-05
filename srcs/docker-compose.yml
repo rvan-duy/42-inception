@@ -1,9 +1,24 @@
 version: "3.8"
 
+volumes:
+  database:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rvan-duy/data/mariadb
+
+
 services:
-  nginx:
-    build:
-      context: requirements/nginx
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    volumes:
+      - database:/var/lib/mysql
+
+
+  # nginx:
+  #   build:
+  #     context: requirements/nginx
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "80:80"

@@ -6,17 +6,17 @@ COMPOSE_FILE := srcs/docker-compose.yml
 all: build run
 
 build:
-	@docker-compose -f $(COMPOSE_FILE) build
+	@docker compose -f $(COMPOSE_FILE) build
 
 run:
-	@docker-compose -f $(COMPOSE_FILE) up -d
+	@docker compose -f $(COMPOSE_FILE) up -d --remove-orphans
 
 stop:
-	@docker-compose -f $(COMPOSE_FILE) stop
+	@docker compose -f $(COMPOSE_FILE) stop
 
 restart: stop run
 
 logs:
-	@docker-compose -f $(COMPOSE_FILE) logs -f
+	@docker compose -f $(COMPOSE_FILE) logs -f
 
 .PHONY: all build run stop restart logs
