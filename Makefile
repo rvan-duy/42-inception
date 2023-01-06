@@ -16,7 +16,10 @@ stop:
 
 restart: stop run
 
+prune:
+	docker system prune
+
 logs:
 	@docker compose -f $(COMPOSE_FILE) logs -f
 
-.PHONY: all build run stop restart logs
+.PHONY: all build run stop restart logs prune
