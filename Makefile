@@ -17,7 +17,7 @@ stop:
 restart: stop run
 
 prune:
-	docker system prune
+	docker system prune -a
 
 logs:
 	@docker compose -f $(COMPOSE_FILE) logs -f
