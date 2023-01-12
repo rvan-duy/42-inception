@@ -10,10 +10,11 @@ fi
 service mariadb start
 sleep 2
 
-mariadb -e "CREATE DATABASE wordpress_database;"
+mariadb -e "CREATE DATABASE IF NOT EXISTS wordpress_database;"
 mariadb -e "CREATE USER 'dictator'@localhost IDENTIFIED BY 'secrets';"
 mariadb -e "GRANT ALL PRIVILEGES ON *.* TO 'dictator'@localhost IDENTIFIED BY 'secrets';"
 mariadb -e "CREATE USER 'minion'@localhost IDENTIFIED BY 'secrets';"
+mariadb -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
