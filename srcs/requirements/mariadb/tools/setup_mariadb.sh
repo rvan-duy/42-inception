@@ -9,9 +9,15 @@ else
     echo "/var/run/mysqld directory already exists, skipping creation and ownership change"
 fi
 
+# Sets the bind address for mariadb
+echo "Setting bind-address to the address of container mariadb"
+sed -i "s/bind-address.*/bind-address = mariadb/" /etc/mysql/mariadb.conf.d/50-server.cnf
+
+# Start daemon
 echo "Starting MariaDB service in the background"
 /usr/bin/mysqld_safe &
 
+# Wait until done
 echo "Waiting for MariaDB service to be fully started"
 RET=1
 # RET will be 0 if the MariaDB service succesfully started
