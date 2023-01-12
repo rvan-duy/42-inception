@@ -14,12 +14,16 @@ run:
 stop:
 	@docker compose -f $(COMPOSE_FILE) stop
 
-restart: stop run
+restart: stop build run
 
 prune:
 	docker system prune -a
+	rm -rf data/mariadb/*
 
 logs:
+	@docker compose -f $(COMPOSE_FILE) logs
+
+logs_follow:
 	@docker compose -f $(COMPOSE_FILE) logs -f
 
 .PHONY: all build run stop restart logs prune

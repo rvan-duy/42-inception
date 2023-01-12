@@ -1,32 +1,22 @@
 #!/bin/bash
 
-# Check if the /var/run/mysqld directory exists
-if [ ! -d "/var/run/mysqld" ]; then
-    echo "Creating /var/run/mysqld directory and setting ownership to mysql:root"
-    mkdir /var/run/mysqld
-    chown -R mysql:root /var/run/mysqld
-else
-    echo "/var/run/mysqld directory already exists, skipping creation and ownership change"
+echo "Entering setup_mariadb.sh"
+
+if [ ! -d /var/lib/mysql/mysql ]; then
+    echo "/var/lib/mysql/mysql doesn't exist, running installation"
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql
 fi
 
-# Sets the bind address for mariadb
-echo "Setting bind-address to the address of container mariadb"
-sed -i "s/bind-address.*/bind-address = mariadb/" /etc/mysql/mariadb.conf.d/50-server.cnf
+service mariadb start
+sleep 2
 
-# Start daemon
-echo "Starting MariaDB service in the background"
-/usr/bin/mysqld_safe &
+mariadb -e "CREATE DATABASE wordpress_database;"
+mariadb -e "CREATE USER 'dictator'@localhost IDENTIFIED BY 'secrets';"
+mariadb -e "GRANT ALL PRIVILEGES ON *.* TO 'dictator'@localhost IDENTIFIED BY 'secrets';"
+mariadb -e "CREATE USER 'minion'@localhost IDENTIFIED BY 'secrets';"
 
-# Wait until done
-echo "Waiting for MariaDB service to be fully started"
-RET=1
-# RET will be 0 if the MariaDB service succesfully started
-while [[ RET -ne 0 ]]; do
-    sleep 5
-    mysql -uroot -e "status" > /dev/null 2>&1
-    RET=$?
-done
+service mariadb stop
 
-echo "MariaDB is now fully started"
+echo "Leaving setup_mariadb.sh"
 
 exec "$@"
