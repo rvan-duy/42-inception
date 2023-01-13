@@ -2,6 +2,7 @@ COMPOSE_FILE := srcs/docker-compose.yml
 
 # make build run
 # make stop logs
+# make build run logs_follow
 
 all: build run
 
@@ -16,7 +17,7 @@ stop:
 
 restart: stop build run
 
-prune:
+prune: stop
 	docker system prune -a
 	rm -rf data/mariadb/*
 

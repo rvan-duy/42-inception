@@ -1,4 +1,5 @@
-version: "3.8"
+version: '${DOCKER_COMPOSE_VERSION:-3}' # if version not set, use 3
+
 
 volumes:
   database:
@@ -14,6 +15,12 @@ services:
     build: requirements/mariadb
     volumes:
       - database:/var/lib/mysql
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME:-default_database_name}
+      - ADMIN_NAME=${ADMIN_NAME:?This variable is required to set the admin user for the MariaDB service.}
+      - ADMIN_PASS=${ADMIN_PASS:?This variable is required to set the admin user for the MariaDB service.}
+      - USER_NAME=${USER_NAME:?This variable is required to set the regular user for the MariaDB service.}
+      - USER_PASS=${USER_PASS:?This variable is required to set the regular user for the MariaDB service.}
 
 
   # nginx:
