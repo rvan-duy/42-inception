@@ -20,6 +20,7 @@ restart: stop build run
 prune: stop
 	docker system prune -a
 	rm -rf data/mariadb/*
+	rm -rf data/wordpress/*
 
 logs:
 	@docker compose -f $(COMPOSE_FILE) logs

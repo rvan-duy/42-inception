@@ -15,7 +15,7 @@ mariadb -e "CREATE DATABASE IF NOT EXISTS $DATABASE_NAME;"
 
 # Create Admin user
 mariadb -e "CREATE USER IF NOT EXISTS $ADMIN_NAME@localhost IDENTIFIED BY '$ADMIN_PASS';"
-mariadb -e "GRANT ALL PRIVILEGES ON *.* TO $ADMIN_NAME@localhost IDENTIFIED BY '$ADMIN_PASS';"
+mariadb -e "GRANT ALL ON *.* TO $ADMIN_NAME@localhost IDENTIFIED BY '$ADMIN_PASS';"
 
 # Create Regular user
 mariadb -e "CREATE USER $USER_NAME@localhost IDENTIFIED BY '$USER_PASS';"

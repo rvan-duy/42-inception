@@ -7,9 +7,24 @@ volumes:
       type: none
       o: bind
       device: /home/rvan-duy/data/mariadb
+  html:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rvan-duy/data/wordpress
 
 
 services:
+  wordpress:
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    build: requirements/wordpress
+    volumes:
+      - html:/var/www/html
+    ports:
+      - "80:80"
+  
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
