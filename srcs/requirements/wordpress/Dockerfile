@@ -1,7 +1,7 @@
 FROM debian:stable
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install php-fpm php-mysql curl -y
+RUN apt-get install php7.4 php-mysqli php-fpm curl mariadb-client -y
 
 # Download WP-CLI and move it to /usr/local/bin so we can use `wp`
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
