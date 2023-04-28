@@ -22,6 +22,9 @@ prune: stop
 	rm -rf data/mariadb/*
 	rm -rf data/wordpress/*
 
+exec-wp:
+	docker exec -it wordpress bash
+
 logs:
 	@docker compose -f $(COMPOSE_FILE) logs
 

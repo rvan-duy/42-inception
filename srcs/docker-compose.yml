@@ -1,6 +1,5 @@
 version: '${DOCKER_COMPOSE_VERSION:-3}' # if version not set, use 3
 
-
 volumes:
   database:
     driver_opts:
@@ -13,7 +12,6 @@ volumes:
       o: bind
       device: /home/rvan-duy/data/wordpress
 
-
 services:
   wordpress:
     depends_on:
@@ -24,7 +22,14 @@ services:
       - html:/var/www/html
     ports:
       - "80:80"
-  
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME:-default_database_name}
+      - DB_HOST=${DB_HOST}
+      - ADMIN_NAME=${ADMIN_NAME:?This variable is required to set the admin user for the MariaDB service.}
+      - ADMIN_PASS=${ADMIN_PASS:?This variable is required to set the admin user for the MariaDB service.}
+      - USER_NAME=${USER_NAME:?This variable is required to set the regular user for the MariaDB service.}
+      - USER_PASS=${USER_PASS:?This variable is required to set the regular user for the MariaDB service.}
+
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
