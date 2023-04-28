@@ -23,26 +23,27 @@ services:
     ports:
       - "80:80"
     environment:
-      - DATABASE_NAME=${DATABASE_NAME:-default_database_name}
-      - DB_HOST=${DB_HOST}
-      - ADMIN_NAME=${ADMIN_NAME:?This variable is required to set the admin user for the MariaDB service.}
-      - ADMIN_PASS=${ADMIN_PASS:?This variable is required to set the admin user for the MariaDB service.}
-      - USER_NAME=${USER_NAME:?This variable is required to set the regular user for the MariaDB service.}
-      - USER_PASS=${USER_PASS:?This variable is required to set the regular user for the MariaDB service.}
+      - DB_NAME=${DB_NAME:?DB_NAME is missing}
+      - DB_HOST=${DB_HOST:?DB_HOST is missing}
+      - DB_USER=${DB_USER:?DB_USER is missing}
+      - DB_PASS=${DB_PASS:?DB_PASS is missing}
+      - WP_ADMIN_NAME=${WP_ADMIN_NAME:?WP_ADMIN_NAME is missing}
+      - WP_ADMIN_PASS=${WP_ADMIN_PASS:?WP_ADMIN_PASS is missing}
+      - WP_USER_NAME=${WP_USER_NAME:?WP_USER_NAME is missing}
+      - WP_USER_PASS=${WP_USER_PASS:?WP_USER_PASS is missing}
 
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
     volumes:
       - database:/var/lib/mysql
+    ports:
+      - "9000:9000"
     environment:
-      - DATABASE_NAME=${DATABASE_NAME:-default_database_name}
-      - ADMIN_NAME=${ADMIN_NAME:?This variable is required to set the admin user for the MariaDB service.}
-      - ADMIN_PASS=${ADMIN_PASS:?This variable is required to set the admin user for the MariaDB service.}
-      - USER_NAME=${USER_NAME:?This variable is required to set the regular user for the MariaDB service.}
-      - USER_PASS=${USER_PASS:?This variable is required to set the regular user for the MariaDB service.}
-
-
+      - DB_NAME=${DB_NAME:?DB_NAME is missing}
+      - DB_HOST=${DB_HOST:?DB_HOST is missing}
+      - DB_USER=${DB_USER:?DB_USER is missing}
+      - DB_PASS=${DB_PASS:?DB_PASS is missing}
   # nginx:
   #   build:
   #     context: requirements/nginx
