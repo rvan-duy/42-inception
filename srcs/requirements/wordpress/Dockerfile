@@ -10,6 +10,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # Set listening port to 
 
+RUN mkdir -p /run/php
+
+RUN sed -i "s/listen.*/listen = 9000/" /etc/php/7.4/fpm/pool.d/www.conf
 # RUN sed 's/;clear_env = no/clear_env = no/' -i /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
@@ -19,3 +22,4 @@ RUN chmod +x /var/www/init_wp.sh
 ENTRYPOINT [ "/var/www/init_wp.sh" ]
 
 CMD [ "php-fpm7.4", "-F" ]
+# CMD [ "tail", "-f" ]

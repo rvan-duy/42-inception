@@ -13,5 +13,4 @@ EXPOSE 3306
 
 ENTRYPOINT [ "setup_mariadb.sh" ]
 
-# Launch mariadb server
 CMD [ "mariadbd" ]

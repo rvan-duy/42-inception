@@ -19,8 +19,8 @@ restart: stop build run
 
 prune: stop
 	docker system prune -a
-	rm -rf data/mariadb/*
-	rm -rf data/wordpress/*
+	sudo rm -rf data/mariadb/*
+	sudo rm -rf data/wordpress/*
 
 exec-wp:
 	docker exec -it wordpress bash
