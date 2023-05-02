@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# wp core download --path=wpclidemo.dev --allow-root
-# cd wpclidemo.dev
-# wp config create --dbname=wpclidemo --dbuser=root --prompt=dbpass --allow-root
-# wp db create --allow-root
-# wp core install --url=wpclidemo.dev --title="WP-CLI" --admin_user=wpcli --admin_password=wpcli --admin_email=info@wp-cli.org --allow-root
-
 echo "init_wp.sh -> downloading and setting up"
 wp core download --path="/var/www/html" --allow-root
 

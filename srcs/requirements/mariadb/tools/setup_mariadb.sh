@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -f /mytestyfile.txt
+
 echo "setup_mariadb.sh -> Installing MariaDB database"
 mysql_install_db    --user=mysql \
                     --datadir=/var/lib/mysql \
@@ -19,5 +21,7 @@ mysql_install_db    --user=mysql \
     echo "FLUSH PRIVILEGES;"
 
 } | mariadbd --bootstrap
+
+touch /mytestyfile.txt
 
 exec "$@"

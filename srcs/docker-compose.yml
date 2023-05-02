@@ -15,13 +15,14 @@ volumes:
 services:
   wordpress:
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     container_name: wordpress
     build: requirements/wordpress
     volumes:
       - html:/var/www/html
     ports:
-      - "80:80"
+      - "9000:9000"
     environment:
       - DB_NAME=${DB_NAME:?DB_NAME is missing}
       - DB_HOST=${DB_HOST:?DB_HOST is missing}
@@ -38,15 +39,23 @@ services:
     volumes:
       - database:/var/lib/mysql
     ports:
-      - "9000:9000"
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "test", "-e", "/mytestyfile.txt" ]
+      interval: 5s
     environment:
       - DB_NAME=${DB_NAME:?DB_NAME is missing}
       - DB_HOST=${DB_HOST:?DB_HOST is missing}
       - DB_USER=${DB_USER:?DB_USER is missing}
       - DB_PASS=${DB_PASS:?DB_PASS is missing}
-  # nginx:
-  #   build:
-  #     context: requirements/nginx
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "80:80"
+
+  nginx:
+    depends_on:
+      - wordpress
+    container_name: nginx
+    build: requirements/nginx
+    volumes:
+      - html:/var/www/html
+    ports:
+      - "443:443"
+      - "80:80"

@@ -1,7 +1,8 @@
 FROM debian:stable
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install php7.4 php-mysqli php-fpm curl mariadb-client -y
+RUN apt-get install php-mysql php-fpm -y
+RUN apt-get install curl -y
 
 # Download WP-CLI and move it to /usr/local/bin so we can use `wp`
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -12,7 +13,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN mkdir -p /run/php
 
-RUN sed -i "s/listen.*/listen = 9000/" /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i "s/listen.*/listen = wordpress:9000/" /etc/php/7.4/fpm/pool.d/www.conf
 # RUN sed 's/;clear_env = no/clear_env = no/' -i /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000

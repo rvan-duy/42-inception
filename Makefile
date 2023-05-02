@@ -25,6 +25,9 @@ prune: stop
 exec-wp:
 	docker exec -it wordpress bash
 
+exec-nginx:
+	docker exec -it nginx bash
+
 logs:
 	@docker compose -f $(COMPOSE_FILE) logs
 
