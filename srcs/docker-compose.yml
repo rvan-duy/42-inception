@@ -23,8 +23,8 @@ services:
     build: requirements/wordpress
     volumes:
       - html:/var/www/html
-    ports:
-      - "9000:9000"
+    networks:
+      - default
     environment:
       - DB_NAME=${DB_NAME:?DB_NAME is missing}
       - DB_HOST=${DB_HOST:?DB_HOST is missing}
@@ -40,11 +40,11 @@ services:
     build: requirements/mariadb
     volumes:
       - database:/var/lib/mysql
-    ports:
-      - "3306:3306"
     healthcheck:
       test: [ "CMD", "test", "-e", "/mytestyfile.txt" ]
       interval: 5s
+    networks:
+      - default
     environment:
       - DB_NAME=${DB_NAME:?DB_NAME is missing}
       - DB_HOST=${DB_HOST:?DB_HOST is missing}
@@ -60,6 +60,8 @@ services:
       - html:/var/www/html
     ports:
       - "443:443"
+    networks:
+      - default
     environment:
       - COUNTRY_CODE=${COUNTRY_CODE:?COUNTRY_CODE is missing}
       - STATE=${STATE:?STATE is missing}
@@ -67,3 +69,7 @@ services:
       - ORGANIZATION=${ORGANIZATION:?ORGANIZATION is missing}
       - ORGANIZATION_UNIT=${ORGANIZATION_UNIT:?ORGANIZATION_UNIT is missing}
       - COMMON_NAME=${COMMON_NAME:?COMMON_NAME is missing}
+
+networks:
+  default:
+    name: inception
