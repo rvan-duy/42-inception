@@ -1,5 +1,7 @@
 version: '${DOCKER_COMPOSE_VERSION:-3}' # if version not set, use 3
 
+# https://github.com/codesshaman/inception/blob/main/01_INSTALL_SOFT.md
+
 volumes:
   database:
     driver_opts:
@@ -58,4 +60,10 @@ services:
       - html:/var/www/html
     ports:
       - "443:443"
-      - "80:80"
+    environment:
+      - COUNTRY_CODE=${COUNTRY_CODE:?COUNTRY_CODE is missing}
+      - STATE=${STATE:?STATE is missing}
+      - LOCALITY_NAME=${LOCALITY_NAME:?LOCALITY_NAME is missing}
+      - ORGANIZATION=${ORGANIZATION:?ORGANIZATION is missing}
+      - ORGANIZATION_UNIT=${ORGANIZATION_UNIT:?ORGANIZATION_UNIT is missing}
+      - COMMON_NAME=${COMMON_NAME:?COMMON_NAME is missing}

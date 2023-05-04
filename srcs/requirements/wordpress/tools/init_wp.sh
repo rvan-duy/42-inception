@@ -21,7 +21,7 @@ wp core install --path="/var/www/html" \
                 --allow-root
 
 echo "init_wp.sh -> creating regular user"
-wp user create "$WP_USER_NAME"s user@example.com \
+wp user create "$WP_USER_NAME" user@example.com \
                 --path="/var/www/html" \
                 --user_pass="$WP_USER_PASS" \
                 --allow-root
