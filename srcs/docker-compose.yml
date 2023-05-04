@@ -43,7 +43,7 @@ services:
       - database:/var/lib/mysql
     restart: always
     healthcheck:
-      test: [ "CMD", "test", "-e", "/mytestyfile.txt" ]
+      test: [ "CMD", "test", "-e", "/health_check_file.test" ]
       interval: 5s
     networks:
       - default

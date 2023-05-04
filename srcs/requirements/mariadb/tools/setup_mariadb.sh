@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -f /mytestyfile.txt
+rm -f /health_check_file.test
 
 echo "setup_mariadb.sh -> Installing MariaDB database"
 mysql_install_db    --user=mysql \
@@ -22,6 +22,6 @@ mysql_install_db    --user=mysql \
 
 } | mariadbd --bootstrap
 
-touch /mytestyfile.txt
+touch /health_check_file.test
 
 exec "$@"
