@@ -1,0 +1,8 @@
+
+entry point:
+- https://rvan-duy.42.fr
+- https goes to port 443
+
+wp login details:
+- dictator/verysecretpasswordiswear
+- minion/anothersecretpass
