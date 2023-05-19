@@ -6,3 +6,6 @@ entry point:
 wp login details:
 - dictator/verysecretpasswordiswear
 - minion/anothersecretpass
+
+https://github.com/codesshaman/inception/blob/main/01_INSTALL_SOFT.md
+xstart
