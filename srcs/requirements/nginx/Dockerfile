@@ -14,6 +14,13 @@ COPY conf/nginx.conf /etc/nginx/sites-available/nginx.conf
 RUN rm -rf /etc/nginx/sites-enabled/* && \
 	ln -sf /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/nginx.conf
 
+# Create the SSL certificate and key
+# - sha256: Use the SHA-256 algorithm to sign the certificate
+# - days: The number of days to certify the certificate for
+# - nodes: If this option is specified then if a private key is created it will not be encrypted
+# - out: The filename to write the newly created certificate to
+# - keyout: The filename to write the newly created private key to
+# - subj: Sets certificate subject
 RUN openssl req -new \
 	-newkey rsa:2048 \
 	-x509 \

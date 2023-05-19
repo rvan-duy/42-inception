@@ -8,16 +8,23 @@ RUN apt-get update && apt-get upgrade -y \
      php-fpm \
      curl
 
+# Install wp-cli, a command line interface for WordPress
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
      && chmod +x wp-cli.phar \
      && mv wp-cli.phar /usr/local/bin/wp
 
+# Create a directory for the PHP-FPM socket
 RUN mkdir -p /run/php
 
+# Configure PHP-FPM to listen on wordpress:9000
 RUN sed -i "s/listen.*/listen = wordpress:9000/" /etc/php/7.4/fpm/pool.d/www.conf
 
+# Copy the initialization script for WordPress
 COPY tools/init_wp.sh /var/www/
 RUN chmod +x /var/www/init_wp.sh
+
+# Set the entrypoint to the initialization script
 ENTRYPOINT [ "/var/www/init_wp.sh" ]
 
+# Start PHP-FPM in foreground mode
 CMD [ "php-fpm7.4", "-F" ]
