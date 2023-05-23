@@ -6,6 +6,7 @@ RUN apt-get update && apt-get upgrade -y \
      && apt-get install -y \
      php-mysql \
      php-fpm \
+     mariadb-client \
      curl
 
 # Install wp-cli, a command line interface for WordPress
