@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:buster
 EXPOSE 443
 
 # Update and upgrade packages, then install packages

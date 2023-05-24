@@ -1,11 +1,11 @@
-FROM debian:stable
+FROM debian:buster
 EXPOSE 9000
 
 # Update and upgrade packages, then install packages
 RUN apt-get update && apt-get upgrade -y \
      && apt-get install -y \
-     php-mysql \
-     php-fpm \
+     php7.3-mysql \
+     php7.3-fpm \
      mariadb-client \
      curl
 
@@ -18,7 +18,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 RUN mkdir -p /run/php
 
 # Configure PHP-FPM to listen on wordpress:9000
-RUN sed -i "s/listen.*/listen = wordpress:9000/" /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i "s/listen.*/listen = wordpress:9000/" /etc/php/7.3/fpm/pool.d/www.conf
 
 # Copy the initialization script for WordPress
 COPY tools/init_wp.sh /var/www/
@@ -28,4 +28,4 @@ RUN chmod +x /var/www/init_wp.sh
 ENTRYPOINT [ "/var/www/init_wp.sh" ]
 
 # Start PHP-FPM in foreground mode
-CMD [ "php-fpm7.4", "-F" ]
+CMD [ "php-fpm7.3", "-F" ]

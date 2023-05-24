@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:buster
 EXPOSE 3306
 
 # Update and upgrade packages, then install packages
@@ -25,4 +25,4 @@ ENTRYPOINT [ "setup_mariadb.sh" ]
 
 # Set the default command to start the MariaDB server daemon
 #   ? Will become the argument of ENTRYPOINT
-CMD [ "mariadbd" ]
+CMD [ "mysqld" ]

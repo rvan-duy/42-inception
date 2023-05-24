@@ -4,8 +4,7 @@ rm -f /health_check_file.test
 
 echo "setup_mariadb.sh -> Installing MariaDB database"
 mysql_install_db    --user=mysql \
-                    --datadir=/var/lib/mysql \
-                    --skip-test-database
+                    --datadir=/var/lib/mysql
 
 {
     echo "FLUSH PRIVILEGES;"
@@ -20,7 +19,7 @@ mysql_install_db    --user=mysql \
     # Making sure permissions are applied
     echo "FLUSH PRIVILEGES;"
 
-} | mariadbd --bootstrap
+} | mysqld --bootstrap
 
 touch /health_check_file.test
 
