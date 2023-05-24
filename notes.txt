@@ -8,4 +8,15 @@ wp login details:
 - minion/anothersecretpass
 
 https://github.com/codesshaman/inception/blob/main/01_INSTALL_SOFT.md
-xstart
+startx
+
+login with root:
+mariadb:
+    - SHOW DATABASES;
+    - USE wordpress_db;
+    - SHOW TABLES;
+    - DESCRIBE wp_users;
+    - SELECT display_name FROM wp_users;
+
+or with database:
+    - mariadb -h localhost -P 3306 -u wordpress_db -p
